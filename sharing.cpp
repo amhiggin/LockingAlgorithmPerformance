@@ -161,69 +161,6 @@ ALIGN(64) UINT64 cnt1;
 ALIGN(64) UINT64 cnt2;
 UINT64 cnt3;                                    // NB: in Debug mode allocated in cache line occupied by cnt0
 
-												//
-												// PMS
-												//
-#ifdef USEPMS
-
-UINT64 *fixedCtr0;                              // fixed counter 0 counts
-UINT64 *fixedCtr1;                              // fixed counter 1 counts
-UINT64 *fixedCtr2;                              // fixed counter 2 counts
-UINT64 *pmc0;                                   // performance counter 0 counts
-UINT64 *pmc1;                                   // performance counter 1 counts
-UINT64 *pmc2;                                   // performance counter 2 counts
-UINT64 *pmc3;                                   // performance counter 2 counts
-
-												//
-												// zeroCounters
-												//
-void zeroCounters()
-{
-	for (UINT i = 0; i < ncpu; i++) {
-		for (int j = 0; j < 4; j++) {
-			if (j < 3)
-				writeFIXED_CTR(i, j, 0);
-			writePMC(i, j, 0);
-		}
-	}
-}
-
-//
-// void setupCounters()
-//
-void setupCounters()
-{
-	if (!openPMS())
-		quit();
-
-	//
-	// enable FIXED counters
-	//
-	for (UINT i = 0; i < ncpu; i++) {
-		writeFIXED_CTR_CTRL(i, (FIXED_CTR_RING123 << 8) | (FIXED_CTR_RING123 << 4) | FIXED_CTR_RING123);
-		writePERF_GLOBAL_CTRL(i, (0x07ULL << 32) | 0x0f);
-	}
-
-}
-
-//
-// void saveCounters()
-//
-void saveCounters()
-{
-	for (UINT i = 0; i < ncpu; i++) {
-		fixedCtr0[indx*ncpu + i] = readFIXED_CTR(i, 0);
-		fixedCtr1[indx*ncpu + i] = readFIXED_CTR(i, 1);
-		fixedCtr2[indx*ncpu + i] = readFIXED_CTR(i, 2);
-		pmc0[indx*ncpu + i] = readPMC(i, 0);
-		pmc1[indx*ncpu + i] = readPMC(i, 1);
-		pmc2[indx*ncpu + i] = readPMC(i, 2);
-		pmc3[indx*ncpu + i] = readPMC(i, 3);
-	}
-}
-
-#endif
-
 //
 // worker
 //
@@ -330,15 +267,9 @@ int main()
 #ifdef FALSESHARING
 	cout << " FALSESHARING";
 #endif
-	cout << " NOPS=" << NOPS << " NSECONDS=" << NSECONDS << " LOCKTYP=" << LOCKTYP;
-#ifdef USEPMS
-	cout << " USEPMS";
-#endif
+	cout << " NOPS=" << NOPS << " NSECONDS=" << NSECONDS << " LOCKSTR=" << LOCKSTR;
 	cout << endl;
 	cout << "Intel" << (cpu64bit() ? "64" : "32") << " family " << cpuFamily() << " model " << cpuModel() << " stepping " << cpuStepping() << " " << cpuBrandString() << endl;
-#ifdef USEPMS
-	cout << "performance monitoring version " << pmversion() << ", " << nfixedCtr() << " x " << fixedCtrW() << "bit fixed counters, " << npmc() << " x " << pmcW() << "bit performance counters" << endl;
-#endif
 
 	//
 	// get cache info
@@ -369,30 +300,10 @@ int main()
 	g = (VINT*)ALIGNED_MALLOC((maxThread + 1)*lineSz, lineSz);                         // local and shared global variables
 #endif
 
-#ifdef USEPMS
-
-	fixedCtr0 = (UINT64*)ALIGNED_MALLOC(5 * maxThread*ncpu * sizeof(UINT64), lineSz);      // for fixed counter 0 results
-	fixedCtr1 = (UINT64*)ALIGNED_MALLOC(5 * maxThread*ncpu * sizeof(UINT64), lineSz);      // for fixed counter 1 results
-	fixedCtr2 = (UINT64*)ALIGNED_MALLOC(5 * maxThread*ncpu * sizeof(UINT64), lineSz);      // for fixed counter 2 results
-	pmc0 = (UINT64*)ALIGNED_MALLOC(5 * maxThread*ncpu * sizeof(UINT64), lineSz);           // for performance counter 0 results
-	pmc1 = (UINT64*)ALIGNED_MALLOC(5 * maxThread*ncpu * sizeof(UINT64), lineSz);           // for performance counter 1 results
-	pmc2 = (UINT64*)ALIGNED_MALLOC(5 * maxThread*ncpu * sizeof(UINT64), lineSz);           // for performance counter 2 results
-	pmc3 = (UINT64*)ALIGNED_MALLOC(5 * maxThread*ncpu * sizeof(UINT64), lineSz);           // for performance counter 3 results
-
-#endif
-
 	r = (Result*)ALIGNED_MALLOC(5 * maxThread * sizeof(Result), lineSz);                   // for results
 	memset(r, 0, 5 * maxThread * sizeof(Result));                                           // zero
 
 	indx = 0;
-
-#ifdef USEPMS
-	//
-	// set up performance monitor counters
-	//
-	setupCounters();
-#endif
-
 	//
 	// use thousands comma separator
 	//
@@ -440,10 +351,6 @@ int main()
 				*(GINDX(thread)) = 0;   // thread local
 			*(GINDX(maxThread)) = 0;    // shared
 
-#ifdef USEPMS
-			zeroCounters();             // zero PMS counters
-#endif
-
 										//
 										// get start time
 										//
@@ -460,10 +367,6 @@ int main()
 			//
 			waitForThreadsToFinish(nt, threadH);
 			UINT64 rt = getWallClockMS() - tstart;
-
-#ifdef USEPMS
-			saveCounters();             // save PMS counters
-#endif
 
 										//
 										// save results and output summary to console
@@ -513,64 +416,6 @@ int main()
 		cout << endl;
 	}
 	cout << endl;
-
-#ifdef USEPMS
-
-	//
-	// output PMS counters
-	//
-	cout << "FIXED_CTR0 instructions retired" << endl;
-	for (UINT i = 0; i < indx; i++) {
-		for (UINT j = 0; j < ncpu; j++)
-			cout << ((j) ? "/" : "") << fixedCtr0[i*ncpu + j];
-		cout << endl;
-	}
-	cout << endl;
-	cout << "FIXED_CTR1 unhalted core cycles" << endl;
-	for (UINT i = 0; i < indx; i++) {
-		for (UINT j = 0; j < ncpu; j++)
-			cout << ((j) ? "/" : "") << fixedCtr1[i*ncpu + j];
-		cout << endl;
-	}
-	cout << endl;
-	cout << "FIXED_CTR2 unhalted reference cycles" << endl;
-	for (UINT i = 0; i < indx; i++) {
-		for (UINT j = 0; j < ncpu; j++)
-			cout << ((j) ? "/" : "") << fixedCtr2[i*ncpu + j];
-		cout << endl;
-	}
-	cout << endl;
-	cout << "PMC0 RTM RETIRED START" << endl;
-	for (UINT i = 0; i < indx; i++) {
-		for (UINT j = 0; j < ncpu; j++)
-			cout << ((j) ? "/" : "") << pmc0[i*ncpu + j];
-		cout << endl;
-	}
-	cout << endl;
-	cout << "PMC1 RTM RETIRED COMMIT" << endl;
-	for (UINT i = 0; i < indx; i++) {
-		for (UINT j = 0; j < ncpu; j++)
-			cout << ((j) ? "/" : "") << pmc1[i*ncpu + j];
-		cout << endl;
-	}
-	cout << endl;
-	cout << "PMC2 unhalted core cycles in committed transactions" << endl;
-	for (UINT i = 0; i < indx; i++) {
-		for (UINT j = 0; j < ncpu; j++)
-			cout << ((j) ? "/" : "") << pmc2[i*ncpu + j];
-		cout << endl;
-	}
-	cout << endl;
-	cout << "PMC3 unhalted core cycles in committed and aborted transactions" << endl;
-	for (UINT i = 0; i < indx; i++) {
-		for (UINT j = 0; j < ncpu; j++)
-			cout << ((j) ? "/" : "") << pmc3[i*ncpu + j];
-		cout << endl;
-	}
-
-	closePMS();                 // close PMS counters
-
-#endif
 
 	quit();
 
