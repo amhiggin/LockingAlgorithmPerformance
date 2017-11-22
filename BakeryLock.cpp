@@ -4,8 +4,9 @@
 * https://www.scss.tcd.ie/jeremy.jones/CS4021/Spin%20Peterson%20and%20Bakery.pdf
 */
 #include "BakeryLock.h"
-#include <stdafx.h>
+#include <Windows.h>
 #include <intrin.h>
+#include "helper.h"
 using namespace std;
 
 void BakeryLock::acquire(int pid) {

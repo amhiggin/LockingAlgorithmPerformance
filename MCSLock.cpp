@@ -5,8 +5,10 @@
 */
 
 #include "MCSLock.h"
+#include "helper.h"
 #include <intrin.h>
-#include <stdafx.h>
+#include <Windows.h>
+
 using namespace std;
 
 template <class QNode>
@@ -24,7 +26,7 @@ MCSLock::MCSLock(){
 	lock = NULL;
 }
 
-void MCSLock::acquire(QNode **lock) {
+void MCSLock::acquire(QNode **lock, DWORD tlsIndex) {
 	volatile QNode *qn = (QNode*)TlsGetValue(tlsIndex);
 	qn->next = NULL;
 	volatile QNode *pred = (QNode*)InterlockedExchangePointer((PVOID*)lock, (PVOID)qn);
@@ -35,7 +37,7 @@ void MCSLock::acquire(QNode **lock) {
 	while (qn->waiting);
 }
 
-void MCSLock::release(QNode **lock) {
+void MCSLock::release(QNode **lock, DWORD tlsIndex) {
 	volatile QNode *qn = (QNode*)TlsGetValue(tlsIndex);
 	volatile QNode *succ;
 	if (!(succ = qn->next)) {

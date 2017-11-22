@@ -1,4 +1,5 @@
 #pragma once
+#include <Windows.h>
 #ifndef MCS_LOCK
 #define MCS_LOCK
 
@@ -19,7 +20,7 @@ class MCSLock {
 public:
 	QNode *lock;
 	MCSLock();
-	void acquire(QNode **lock);
-	void release(QNode **lock);
+	void acquire(QNode **lock, DWORD tlsIndex);
+	void release(QNode **lock, DWORD tlsIndex);
 };
 #endif

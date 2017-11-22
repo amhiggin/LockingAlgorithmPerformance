@@ -18,7 +18,7 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
-#include <stdafx.h> // pre-compiled headers
+#include <windows.h> // pre-compiled headers
 #include <iomanip>          // {joj 27/5/14}
 #include <locale>           // {joj 7/6/14}
 

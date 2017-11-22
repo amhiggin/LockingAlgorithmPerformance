@@ -49,11 +49,11 @@
 // NB: gcc needs flags -mrtm -mrdrnd
 //
 
-#include <stdafx.h>         // pre-compiled headers
+#include <Windows.h>	    // pre-compiled headers
 #include <iostream>         // cout
 #include <iomanip>          // setprecision
 #include "helper.h"         //
-#include <intrin.h>
+#include <tchar.h>
 
 #ifdef WIN32
 #include <conio.h>          // _getch()
@@ -68,14 +68,14 @@
 
 using namespace std;        // cout. ...
 
-//
-// for data returned by cpuid instruction
-//
+							//
+							// for data returned by cpuid instruction
+							//
 struct _cd {
-    UINT eax;
-    UINT ebx;
-    UINT ecx;
-    UINT edx;
+	UINT eax;
+	UINT ebx;
+	UINT ecx;
+	UINT edx;
 } cd;
 
 UINT ncpu;                  // # logical CPUs {joj 25/7/14}
@@ -83,19 +83,19 @@ char *hostName = NULL;      // host name
 char *osName = NULL;        // os name
 char *brandString = NULL;   // cpu brand string
 
-//
-// getDateAndTime
-//
+							//
+							// getDateAndTime
+							//
 void getDateAndTime(char *dateAndTime, int sz, time_t t)
 {
-    t = (t == 0) ? time(NULL) : 0;
+	t = (t == 0) ? time(NULL) : 0;
 #ifdef WIN32
-    struct tm now;
-    localtime_s(&now, &t);
-    strftime(dateAndTime, sz, "%d-%b-%Y %H:%M:%S", &now);
+	struct tm now;
+	localtime_s(&now, &t);
+	strftime(dateAndTime, sz, "%d-%b-%Y %H:%M:%S", &now);
 #elif __linux__
-    struct tm *now = localtime(&t);
-    strftime(dateAndTime, sz, "%d-%b-%Y %H:%M:%S", now);
+	struct tm *now = localtime(&t);
+	strftime(dateAndTime, sz, "%d-%b-%Y %H:%M:%S", now);
 #endif
 }
 
@@ -104,20 +104,20 @@ void getDateAndTime(char *dateAndTime, int sz, time_t t)
 //
 char* getHostName()
 {
-    if (hostName == NULL) {
+	if (hostName == NULL) {
 
 #ifdef WIN32
-        DWORD sz = (MAX_COMPUTERNAME_LENGTH + 1) * sizeof(char);
-        hostName = (char*) malloc(sz);
-        GetComputerNameA(hostName, &sz);
+		DWORD sz = (MAX_COMPUTERNAME_LENGTH + 1) * sizeof(char);
+		hostName = (char*)malloc(sz);
+		GetComputerNameA(hostName, &sz);
 #elif __linux__
-        size_t sz = (HOST_NAME_MAX + 1) * sizeof(char);
-        hostName = (char*) malloc(sz);
-        gethostname(hostName, sz);
+		size_t sz = (HOST_NAME_MAX + 1) * sizeof(char);
+		hostName = (char*)malloc(sz);
+		gethostname(hostName, sz);
 #endif
 
-    }
-    return hostName;
+	}
+	return hostName;
 }
 
 //
@@ -125,30 +125,30 @@ char* getHostName()
 //
 char* getOSName()
 {
-    if (osName == NULL) {
+	if (osName == NULL) {
 
-        osName = (char*) malloc(256);   // should be large enough
+		osName = (char*)malloc(256);   // should be large enough
 
 #ifdef WIN32
-        DWORD sz = 256;
-        RegGetValueA(HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows NT\\CurrentVersion", "ProductName", RRF_RT_ANY, NULL, (LPBYTE) osName, &sz);
+		DWORD sz = 256;
+		RegGetValueA(HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows NT\\CurrentVersion", "ProductName", RRF_RT_ANY, NULL, (LPBYTE)osName, &sz);
 #ifdef _WIN64
-        strcat_s(osName, 256, " (64 bit)");
+		strcat_s(osName, 256, " (64 bit)");
 #else
-        int win64;
-        IsWow64Process(GetCurrentProcess(), &win64);
-        strcat_s(osName, 256, win64 ? " (64 bit)" : " (32 bit)");
+		int win64;
+		IsWow64Process(GetCurrentProcess(), &win64);
+		strcat_s(osName, 256, win64 ? " (64 bit)" : " (32 bit)");
 #endif
 #elif __linux__
-        struct utsname utsName;
-        uname(&utsName);
-        strcpy(osName, utsName.sysname);
-        strcat(osName,  " ");
-        strcat(osName, utsName.release);
+		struct utsname utsName;
+		uname(&utsName);
+		strcpy(osName, utsName.sysname);
+		strcat(osName, " ");
+		strcat(osName, utsName.release);
 #endif
 
-    }
-    return osName;
+	}
+	return osName;
 }
 
 //
@@ -159,7 +159,7 @@ char* getOSName()
 //
 int is64bitExe()
 {
-    return sizeof(size_t) == 8;
+	return sizeof(size_t) == 8;
 }
 
 //
@@ -168,11 +168,11 @@ int is64bitExe()
 UINT64 getPhysicalMemSz()
 {
 #ifdef WIN32
-    UINT64 v;
-    GetPhysicallyInstalledSystemMemory(&v);                         // returns KB
-    return v * 1024;                                                // now bytes
+	UINT64 v;
+	GetPhysicallyInstalledSystemMemory(&v);                         // returns KB
+	return v * 1024;                                                // now bytes
 #elif __linux__
-    return (UINT64) sysconf(_SC_PHYS_PAGES)* sysconf(_SC_PAGESIZE); // NB: returns bytes
+	return (UINT64)sysconf(_SC_PHYS_PAGES)* sysconf(_SC_PAGESIZE); // NB: returns bytes
 #endif
 }
 
@@ -182,11 +182,11 @@ UINT64 getPhysicalMemSz()
 int getNumberOfCPUs()
 {
 #ifdef WIN32
-    SYSTEM_INFO sysinfo;
-    GetSystemInfo(&sysinfo );
-    return sysinfo.dwNumberOfProcessors;
+	SYSTEM_INFO sysinfo;
+	GetSystemInfo(&sysinfo);
+	return sysinfo.dwNumberOfProcessors;
 #elif __linux__
-    return sysconf(_SC_NPROCESSORS_ONLN);
+	return sysconf(_SC_NPROCESSORS_ONLN);
 #endif
 }
 
@@ -195,8 +195,8 @@ int getNumberOfCPUs()
 //
 int cpu64bit()
 {
-    CPUID(cd, 0x80000001);
-    return (cd.edx >> 29) & 0x01;
+	CPUID(cd, 0x80000001);
+	return (cd.edx >> 29) & 0x01;
 }
 
 //
@@ -204,8 +204,8 @@ int cpu64bit()
 //
 int cpuFamily()
 {
-    CPUID(cd, 0x01);
-    return (cd.eax >> 8) & 0xff;
+	CPUID(cd, 0x01);
+	return (cd.eax >> 8) & 0xff;
 }
 
 //
@@ -213,10 +213,10 @@ int cpuFamily()
 //
 int cpuModel()
 {
-    CPUID(cd, 0x01);
-    if (((cd.eax >> 8) & 0xff) == 0x06)
-        return (cd.eax >> 12 & 0xf0) + ((cd.eax >> 4) & 0x0f);
-    return (cd.eax >> 4) & 0x0f;
+	CPUID(cd, 0x01);
+	if (((cd.eax >> 8) & 0xff) == 0x06)
+		return (cd.eax >> 12 & 0xf0) + ((cd.eax >> 4) & 0x0f);
+	return (cd.eax >> 4) & 0x0f;
 }
 
 //
@@ -224,8 +224,8 @@ int cpuModel()
 //
 int cpuStepping()
 {
-    CPUID(cd, 0x01);
-    return cd.eax & 0x0f;
+	CPUID(cd, 0x01);
+	return cd.eax & 0x0f;
 }
 
 //
@@ -233,28 +233,28 @@ int cpuStepping()
 //
 char *cpuBrandString()
 {
-    if (brandString)
-        return brandString;
+	if (brandString)
+		return brandString;
 
-    brandString = (char*) calloc(16*3, sizeof(char));
+	brandString = (char*)calloc(16 * 3, sizeof(char));
 
-    CPUID(cd, 0x80000000);
+	CPUID(cd, 0x80000000);
 
-    if (cd.eax < 0x80000004) {
-        strcpy_s(brandString, 16*3, "unknown");
-        return brandString;
-    }
+	if (cd.eax < 0x80000004) {
+		strcpy_s(brandString, 16 * 3, "unknown");
+		return brandString;
+	}
 
-    for (int i = 0; i < 3; i++) {
-        CPUID(cd, 0x80000002 + i);
-        UINT *p = &cd.eax;
-        for (int j = 0; j < 4; j++, p++) {
-            for (int k = 0; k < 4; k++ ) {
-                brandString[i*16 + j*4 + k] = (*p >> (k * 8)) & 0xff;
-            }
-        }
-    }
-    return brandString;
+	for (int i = 0; i < 3; i++) {
+		CPUID(cd, 0x80000002 + i);
+		UINT *p = &cd.eax;
+		for (int j = 0; j < 4; j++, p++) {
+			for (int k = 0; k < 4; k++) {
+				brandString[i * 16 + j * 4 + k] = (*p >> (k * 8)) & 0xff;
+			}
+		}
+	}
+	return brandString;
 }
 
 //
@@ -264,8 +264,8 @@ char *cpuBrandString()
 //
 int rtmSupported()
 {
-    CPUIDEX(cd, 0x07, 0);
-    return (cd.ebx >> 11) & 1;      // test bit 11 in ebx
+	CPUIDEX(cd, 0x07, 0);
+	return (cd.ebx >> 11) & 1;      // test bit 11 in ebx
 }
 
 //
@@ -275,8 +275,8 @@ int rtmSupported()
 //
 int hleSupported()
 {
-    CPUIDEX(cd, 0x07, 0);
-    return (cd.ebx >> 4) & 1;       // test bit 4 in ebx
+	CPUIDEX(cd, 0x07, 0);
+	return (cd.ebx >> 4) & 1;       // test bit 4 in ebx
 }
 
 //
@@ -284,26 +284,26 @@ int hleSupported()
 //
 int lookForL1DataCacheInfo(int v)
 {
-    if (v & 0x80000000)
-        return 0;
+	if (v & 0x80000000)
+		return 0;
 
-    for (int i = 0; i < 4; i++) {
-        switch (v & 0xff) {
-        case 0x0a:
-        case 0x0c:
-        case 0x10:
-            return 32;
-        case 0x0e:
-        case 0x2c:
-        case 0x60:
-        case 0x66:
-        case 0x67:
-        case 0x68:
-            return 64;
-        }
-        v >>= 8;
-    }
-    return 0;
+	for (int i = 0; i < 4; i++) {
+		switch (v & 0xff) {
+		case 0x0a:
+		case 0x0c:
+		case 0x10:
+			return 32;
+		case 0x0e:
+		case 0x2c:
+		case 0x60:
+		case 0x66:
+		case 0x67:
+		case 0x68:
+			return 64;
+		}
+		v >>= 8;
+	}
+	return 0;
 }
 
 //
@@ -311,26 +311,26 @@ int lookForL1DataCacheInfo(int v)
 //
 int getL1DataCacheInfo()
 {
-    CPUID(cd, 2);
+	CPUID(cd, 2);
 
-    if ((cd.eax & 0xff) != 1) {
-        cout << "unrecognised cache type: default L 64" << endl;
-        return 64;
-    }
+	if ((cd.eax & 0xff) != 1) {
+		cout << "unrecognised cache type: default L 64" << endl;
+		return 64;
+	}
 
-    int sz;
+	int sz;
 
-    if ((sz = lookForL1DataCacheInfo(cd.eax & ~0xff)))
-        return sz;
-    if ((sz = lookForL1DataCacheInfo(cd.ebx)))
-        return sz;
-    if ((sz = lookForL1DataCacheInfo(cd.ecx)))
-        return sz;
-    if ((sz = lookForL1DataCacheInfo(cd.edx)))
-        return sz;
+	if ((sz = lookForL1DataCacheInfo(cd.eax & ~0xff)))
+		return sz;
+	if ((sz = lookForL1DataCacheInfo(cd.ebx)))
+		return sz;
+	if ((sz = lookForL1DataCacheInfo(cd.ecx)))
+		return sz;
+	if ((sz = lookForL1DataCacheInfo(cd.edx)))
+		return sz;
 
-    cout << "unrecognised cache type: default L 64" << endl;
-    return 64;
+	cout << "unrecognised cache type: default L 64" << endl;
+	return 64;
 }
 
 //
@@ -338,25 +338,25 @@ int getL1DataCacheInfo()
 //
 int getCacheInfo(int level, int data, int &l, int &k, int&n)
 {
-    CPUID(cd, 0x00);
-    if (cd.eax < 4)
-        return 0;
-    int i = 0;
-    while (1) {
-        CPUIDEX(cd, 0x04, i);
-        int type = cd.eax & 0x1f;
-        if (type == 0)
-            return 0;
-        int lev = ((cd.eax >> 5) & 0x07);
-        if ((lev == level) && (((data == 0) && (type = 2)) || ((data == 1) && (type == 1))))
-            break;
-        i++;
-    }
-    k = ((cd.ebx >> 22) & 0x03ff) + 1;
-    int partitions = ((cd.ebx) >> 12 & 0x03ff) + 1;
-    n = cd.ecx + 1;
-    l = (cd.ebx & 0x0fff) + 1;
-    return partitions == 1;
+	CPUID(cd, 0x00);
+	if (cd.eax < 4)
+		return 0;
+	int i = 0;
+	while (1) {
+		CPUIDEX(cd, 0x04, i);
+		int type = cd.eax & 0x1f;
+		if (type == 0)
+			return 0;
+		int lev = ((cd.eax >> 5) & 0x07);
+		if ((lev == level) && (((data == 0) && (type = 2)) || ((data == 1) && (type == 1))))
+			break;
+		i++;
+	}
+	k = ((cd.ebx >> 22) & 0x03ff) + 1;
+	int partitions = ((cd.ebx) >> 12 & 0x03ff) + 1;
+	n = cd.ecx + 1;
+	l = (cd.ebx & 0x0fff) + 1;
+	return partitions == 1;
 }
 
 //
@@ -364,24 +364,24 @@ int getCacheInfo(int level, int data, int &l, int &k, int&n)
 //
 int getDeterministicCacheInfo()
 {
-    int type, ways, partitions, lineSz = 0, sets;
-    int i = 0;
-    while (1) {
-        CPUIDEX(cd, 0x04, i);
-        type = cd.eax & 0x1f;
-        if (type == 0)
-            break;
-        cout << "L" << ((cd.eax >> 5) & 0x07);
-        cout << ((type == 1) ? " D" : (type == 2) ? " I" : " U");
-        ways = ((cd.ebx >> 22) & 0x03ff) + 1;
-        partitions = ((cd.ebx) >> 12 & 0x03ff) + 1;
-        sets = cd.ecx + 1;
-        lineSz = (cd.ebx & 0x0fff) + 1;
-        cout << " " << setw(5) << ways*partitions*lineSz*sets/1024 << "K" << " L" << setw(3) << lineSz << " K" << setw(3) << ways << " N" << setw(5) << sets;
-        cout << endl;
-        i++;
-    }
-    return lineSz;
+	int type, ways, partitions, lineSz = 0, sets;
+	int i = 0;
+	while (1) {
+		CPUIDEX(cd, 0x04, i);
+		type = cd.eax & 0x1f;
+		if (type == 0)
+			break;
+		cout << "L" << ((cd.eax >> 5) & 0x07);
+		cout << ((type == 1) ? " D" : (type == 2) ? " I" : " U");
+		ways = ((cd.ebx >> 22) & 0x03ff) + 1;
+		partitions = ((cd.ebx) >> 12 & 0x03ff) + 1;
+		sets = cd.ecx + 1;
+		lineSz = (cd.ebx & 0x0fff) + 1;
+		cout << " " << setw(5) << ways*partitions*lineSz*sets / 1024 << "K" << " L" << setw(3) << lineSz << " K" << setw(3) << ways << " N" << setw(5) << sets;
+		cout << endl;
+		i++;
+	}
+	return lineSz;
 }
 
 //
@@ -389,10 +389,10 @@ int getDeterministicCacheInfo()
 //
 int getCacheLineSz()
 {
-    CPUID(cd, 0x00);
-    if (cd.eax >= 4)
-        return getDeterministicCacheInfo();
-    return getL1DataCacheInfo();
+	CPUID(cd, 0x00);
+	if (cd.eax >= 4)
+		return getDeterministicCacheInfo();
+	return getL1DataCacheInfo();
 }
 
 //
@@ -401,11 +401,11 @@ int getCacheLineSz()
 UINT getPageSz()
 {
 #ifdef WIN32
-    SYSTEM_INFO si;
-    GetSystemInfo(&si);
-    return si.dwPageSize;
+	SYSTEM_INFO si;
+	GetSystemInfo(&si);
+	return si.dwPageSize;
 #elif __linux__
-    return sysconf(_SC_PAGESIZE);
+	return sysconf(_SC_PAGESIZE);
 #endif
 }
 
@@ -415,11 +415,11 @@ UINT getPageSz()
 UINT64 getWallClockMS()
 {
 #ifdef WIN32
-    return (UINT64) clock() * 1000 / CLOCKS_PER_SEC;
+	return (UINT64)clock() * 1000 / CLOCKS_PER_SEC;
 #elif __linux__
-    struct timespec t;
-    clock_gettime(CLOCK_MONOTONIC, &t);
-    return t.tv_sec*1000 + t.tv_nsec / 1000000;
+	struct timespec t;
+	clock_gettime(CLOCK_MONOTONIC, &t);
+	return t.tv_sec * 1000 + t.tv_nsec / 1000000;
 #endif
 }
 
@@ -429,9 +429,9 @@ UINT64 getWallClockMS()
 void createThread(THREADH *threadH, WORKERF, void *arg)
 {
 #ifdef WIN32
-    *threadH = CreateThread(NULL, 0, worker, arg, 0, NULL);
+	*threadH = CreateThread(NULL, 0, worker, arg, 0, NULL);
 #elif __linux__
-    pthread_create(threadH, NULL, worker, arg);
+	pthread_create(threadH, NULL, worker, arg);
 #endif
 }
 
@@ -441,12 +441,12 @@ void createThread(THREADH *threadH, WORKERF, void *arg)
 void runThreadOnCPU(UINT cpu)
 {
 #ifdef WIN32
-    SetThreadAffinityMask(GetCurrentThread(), 1 << cpu);
+	SetThreadAffinityMask(GetCurrentThread(), 1 << cpu);
 #elif __linux__
-    cpu_set_t cpuset;
-    CPU_ZERO(&cpuset);
-    CPU_SET(cpu, &cpuset);
-    pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
+	cpu_set_t cpuset;
+	CPU_ZERO(&cpuset);
+	CPU_SET(cpu, &cpuset);
+	pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
 #endif
 }
 
@@ -456,9 +456,9 @@ void runThreadOnCPU(UINT cpu)
 void closeThread(THREADH threadH)
 {
 #ifdef WIN32
-    CloseHandle(threadH);
+	CloseHandle(threadH);
 #elif __linux__
-    // nothing to do
+	// nothing to do
 #endif
 }
 
@@ -468,10 +468,10 @@ void closeThread(THREADH threadH)
 void waitForThreadsToFinish(UINT nt, THREADH *threadH)
 {
 #ifdef WIN32
-    WaitForMultipleObjects(nt, threadH, true, INFINITE);
+	WaitForMultipleObjects(nt, threadH, true, INFINITE);
 #elif __linux__
-    for (UINT thread = 0; thread < nt; thread++)
-        pthread_join(threadH[thread], NULL);
+	for (UINT thread = 0; thread < nt; thread++)
+		pthread_join(threadH[thread], NULL);
 #endif
 }
 
@@ -488,11 +488,11 @@ void waitForThreadsToFinish(UINT nt, THREADH *threadH)
 
 #ifdef WIN32
 
-typedef BOOL (WINAPI *_InitializeOls) ();
-typedef VOID (WINAPI *_DeinitializeOls) ();
+typedef BOOL(WINAPI *_InitializeOls) ();
+typedef VOID(WINAPI *_DeinitializeOls) ();
 
-typedef DWORD (WINAPI *_Rdmsr) (DWORD index, PDWORD eax, PDWORD edx);
-typedef DWORD (WINAPI *_Wrmsr) (DWORD index, DWORD eax, DWORD edx);
+typedef DWORD(WINAPI *_Rdmsr) (DWORD index, PDWORD eax, PDWORD edx);
+typedef DWORD(WINAPI *_Wrmsr) (DWORD index, DWORD eax, DWORD edx);
 
 _InitializeOls InitializeOls = NULL;
 _DeinitializeOls DeinitializeOls = NULL;
@@ -513,28 +513,28 @@ HMODULE hModule = NULL;
 //
 int openPMS()
 {
-    if ((hModule = LoadLibrary(is64bitExe() ? _T("WinRing0x64.dll") : _T("WinRing0.dll"))) == NULL)
-        goto err;
+	if ((hModule = LoadLibrary(is64bitExe() ? _T("WinRing0x64.dll") : _T("WinRing0.dll"))) == NULL)
+		goto err;
 
-    InitializeOls = (_InitializeOls) GetProcAddress(hModule, "InitializeOls");
-    DeinitializeOls = (_DeinitializeOls) GetProcAddress(hModule, "DeinitializeOls");
+	InitializeOls = (_InitializeOls)GetProcAddress(hModule, "InitializeOls");
+	DeinitializeOls = (_DeinitializeOls)GetProcAddress(hModule, "DeinitializeOls");
 
-    Rdmsr = (_Rdmsr) GetProcAddress(hModule, "Rdmsr");
-    Wrmsr = (_Wrmsr) GetProcAddress(hModule, "Wrmsr");
+	Rdmsr = (_Rdmsr)GetProcAddress(hModule, "Rdmsr");
+	Wrmsr = (_Wrmsr)GetProcAddress(hModule, "Wrmsr");
 
-    if (InitializeOls())
-        return 1;
+	if (InitializeOls())
+		return 1;
 
 err:
 
-    int win64;
-    IsWow64Process(GetCurrentProcess(), &win64);
+	int win64;
+	IsWow64Process(GetCurrentProcess(), &win64);
 
-    cout << "unable to access performance monitoring counters" << endl;
-    cout << "make sure " << (is64bitExe() ? "WinRing0x64.dll" : "WinRing0.dll") << " and " << (win64 ? "WinRing0x64.sys" : "WinRing0.sys") << " are in the same directory as exe" << endl;
-    cout << "make sure sharing.exe is run as administrator " << endl << endl;
+	cout << "unable to access performance monitoring counters" << endl;
+	cout << "make sure " << (is64bitExe() ? "WinRing0x64.dll" : "WinRing0.dll") << " and " << (win64 ? "WinRing0x64.sys" : "WinRing0.sys") << " are in the same directory as exe" << endl;
+	cout << "make sure sharing.exe is run as administrator " << endl << endl;
 
-    return 0;
+	return 0;
 
 }
 
@@ -543,11 +543,11 @@ err:
 //
 void closePMS()
 {
-    if (hModule) {
-        DeinitializeOls();
-        FreeLibrary(hModule);
-        hModule = NULL;
-    }
+	if (hModule) {
+		DeinitializeOls();
+		FreeLibrary(hModule);
+		hModule = NULL;
+	}
 }
 
 //
@@ -555,11 +555,11 @@ void closePMS()
 //
 UINT64 readMSR(int cpu, int addr)
 {
-    DWORD high, low;
-    DWORD_PTR oldAffinity = SetThreadAffinityMask(GetCurrentThread(), 1 << cpu);
-    Rdmsr(addr, &low, &high);
-    SetThreadAffinityMask(GetCurrentThread(), oldAffinity);
-    return ((UINT64) high << 32) | low;
+	DWORD high, low;
+	DWORD_PTR oldAffinity = SetThreadAffinityMask(GetCurrentThread(), 1 << cpu);
+	Rdmsr(addr, &low, &high);
+	SetThreadAffinityMask(GetCurrentThread(), oldAffinity);
+	return ((UINT64)high << 32) | low;
 }
 
 //
@@ -567,9 +567,9 @@ UINT64 readMSR(int cpu, int addr)
 //
 void writeMSR(int cpu, int addr, UINT64 v)
 {
-    DWORD_PTR oldAffinity = SetThreadAffinityMask(GetCurrentThread(), 1 << cpu);
-    Wrmsr(addr, (DWORD) v, v >> 32);
-    SetThreadAffinityMask(GetCurrentThread(), oldAffinity);
+	DWORD_PTR oldAffinity = SetThreadAffinityMask(GetCurrentThread(), 1 << cpu);
+	Wrmsr(addr, (DWORD)v, v >> 32);
+	SetThreadAffinityMask(GetCurrentThread(), oldAffinity);
 }
 
 #elif __linux__
@@ -607,28 +607,28 @@ int *fd;
 //
 int openPMS()
 {
-    char fn[32];
-    int err = 0;
+	char fn[32];
+	int err = 0;
 
-    ncpu = getNumberOfCPUs();
+	ncpu = getNumberOfCPUs();
 
-    fd = (int*) calloc(1, ncpu*sizeof(int));
+	fd = (int*)calloc(1, ncpu * sizeof(int));
 
-    for (UINT i = 0; i < ncpu; i++) {
-        sprintf(fn, "/dev/cpu/%d/msr", i);
-        if ((fd[i] = open(fn, O_RDWR)) == -1) {
-            cout << "unable to open " << fn << endl;
-            err = 1;
-        }
-    }
+	for (UINT i = 0; i < ncpu; i++) {
+		sprintf(fn, "/dev/cpu/%d/msr", i);
+		if ((fd[i] = open(fn, O_RDWR)) == -1) {
+			cout << "unable to open " << fn << endl;
+			err = 1;
+		}
+	}
 
-    if (err) {
-        cout << endl;
-        cout << "make sure the msr driver is loaded by checking for file(s) /dev/cpu/0/msr, /dev/cpu/1/msr ..." << endl;
-        cout << "autoload the msr driver on boot by adding msr to /etc/modules" << endl;
-        cout << "make sure program is run as root" << endl;
-    }
-    return err == 0;
+	if (err) {
+		cout << endl;
+		cout << "make sure the msr driver is loaded by checking for file(s) /dev/cpu/0/msr, /dev/cpu/1/msr ..." << endl;
+		cout << "autoload the msr driver on boot by adding msr to /etc/modules" << endl;
+		cout << "make sure program is run as root" << endl;
+	}
+	return err == 0;
 }
 
 //
@@ -636,10 +636,10 @@ int openPMS()
 //
 void closePMS()
 {
-    for (UINT i = 0; i < ncpu; i++) {
-        if (fd[i] != -1)
-            close(fd[i]);
-    }
+	for (UINT i = 0; i < ncpu; i++) {
+		if (fd[i] != -1)
+			close(fd[i]);
+	}
 }
 
 //
@@ -649,13 +649,13 @@ void closePMS()
 //
 UINT64 readMSR(int cpu, int addr)
 {
-    UINT64 msr = 0;
-    if (fd[cpu] != -1) {
-        lseek(fd[cpu], addr, SEEK_SET);
-        if (read(fd[cpu], &msr, sizeof(msr)) != sizeof(msr))
-            cout << "Warning: unable to readMSR(" << cpu << ", " << addr << ")" << endl;
-    }
-    return msr;
+	UINT64 msr = 0;
+	if (fd[cpu] != -1) {
+		lseek(fd[cpu], addr, SEEK_SET);
+		if (read(fd[cpu], &msr, sizeof(msr)) != sizeof(msr))
+			cout << "Warning: unable to readMSR(" << cpu << ", " << addr << ")" << endl;
+	}
+	return msr;
 }
 
 //
@@ -665,11 +665,11 @@ UINT64 readMSR(int cpu, int addr)
 //
 void writeMSR(int cpu, int addr, UINT64 v)
 {
-    if (fd[cpu] != -1) {
-        lseek(fd[cpu], addr, SEEK_SET);
-        if (write(fd[cpu], &v, sizeof(v)) != sizeof(v))
-            cout << "Warning: unable to writeMSR(" << cpu << ", " << addr << ", " << v << ")" << endl;
-    }
+	if (fd[cpu] != -1) {
+		lseek(fd[cpu], addr, SEEK_SET);
+		if (write(fd[cpu], &v, sizeof(v)) != sizeof(v))
+			cout << "Warning: unable to writeMSR(" << cpu << ", " << addr << ", " << v << ")" << endl;
+	}
 }
 
 #endif
@@ -679,8 +679,8 @@ void writeMSR(int cpu, int addr, UINT64 v)
 //
 int pmversion()
 {
-    CPUID(cd, 0x0a);
-    return cd.eax & 0xff;
+	CPUID(cd, 0x0a);
+	return cd.eax & 0xff;
 }
 
 //
@@ -688,8 +688,8 @@ int pmversion()
 //
 int nfixedCtr()
 {
-    CPUID(cd, 0x0a);
-    return cd.edx & 0x1f;
+	CPUID(cd, 0x0a);
+	return cd.edx & 0x1f;
 }
 
 //
@@ -697,8 +697,8 @@ int nfixedCtr()
 //
 int fixedCtrW()
 {
-    CPUID(cd, 0x0a);
-    return (cd.edx >> 5) & 0xff;
+	CPUID(cd, 0x0a);
+	return (cd.edx >> 5) & 0xff;
 }
 
 //
@@ -706,8 +706,8 @@ int fixedCtrW()
 //
 int npmc()
 {
-    CPUID(cd, 0x0a);
-    return (cd.eax >> 8 ) & 0xff;
+	CPUID(cd, 0x0a);
+	return (cd.eax >> 8) & 0xff;
 }
 
 //
@@ -715,8 +715,8 @@ int npmc()
 //
 int pmcW()
 {
-    CPUID(cd, 0x0a);
-    return (cd.eax >> 16) & 0xff;
+	CPUID(cd, 0x0a);
+	return (cd.eax >> 16) & 0xff;
 }
 
 //
@@ -724,7 +724,7 @@ int pmcW()
 //
 UINT64 readFIXED_CTR(int cpu, int n)
 {
-    return readMSR(cpu, 0x0309 + n);
+	return readMSR(cpu, 0x0309 + n);
 }
 
 //
@@ -732,7 +732,7 @@ UINT64 readFIXED_CTR(int cpu, int n)
 //
 void writeFIXED_CTR(int cpu, int n, UINT64 v)
 {
-    return writeMSR(cpu, 0x0309 + n, v);
+	return writeMSR(cpu, 0x0309 + n, v);
 }
 
 //
@@ -740,7 +740,7 @@ void writeFIXED_CTR(int cpu, int n, UINT64 v)
 //
 UINT64 readFIXED_CTR_CTRL(int cpu)
 {
-    return readMSR(cpu, 0x038d);
+	return readMSR(cpu, 0x038d);
 }
 
 //
@@ -748,7 +748,7 @@ UINT64 readFIXED_CTR_CTRL(int cpu)
 //
 void writeFIXED_CTR_CTRL(int cpu, UINT64 v)
 {
-    return writeMSR(cpu, 0x038d, v);
+	return writeMSR(cpu, 0x038d, v);
 }
 
 //
@@ -756,7 +756,7 @@ void writeFIXED_CTR_CTRL(int cpu, UINT64 v)
 //
 UINT64 readPERF_GLOBAL_STATUS(int cpu)
 {
-    return readMSR(cpu, 0x038e);
+	return readMSR(cpu, 0x038e);
 }
 
 //
@@ -764,7 +764,7 @@ UINT64 readPERF_GLOBAL_STATUS(int cpu)
 //
 void writePERF_GLOBAL_STATUS(int cpu, UINT64 v)
 {
-    return writeMSR(cpu, 0x038e, v);
+	return writeMSR(cpu, 0x038e, v);
 }
 
 //
@@ -772,7 +772,7 @@ void writePERF_GLOBAL_STATUS(int cpu, UINT64 v)
 //
 UINT64 readPERF_GLOBAL_CTRL(int cpu)
 {
-    return readMSR(cpu, 0x038f);
+	return readMSR(cpu, 0x038f);
 }
 
 //
@@ -780,7 +780,7 @@ UINT64 readPERF_GLOBAL_CTRL(int cpu)
 //
 void writePERF_GLOBAL_CTRL(int cpu, UINT64 v)
 {
-    return writeMSR(cpu, 0x038f, v);
+	return writeMSR(cpu, 0x038f, v);
 }
 
 //
@@ -788,7 +788,7 @@ void writePERF_GLOBAL_CTRL(int cpu, UINT64 v)
 //
 UINT64 readPERF_GLOBAL_OVR_CTRL(int cpu)
 {
-    return readMSR(cpu, 0x0390);
+	return readMSR(cpu, 0x0390);
 }
 
 //
@@ -796,7 +796,7 @@ UINT64 readPERF_GLOBAL_OVR_CTRL(int cpu)
 //
 void writePERF_GLOBAL_OVR_CTRL(int cpu, UINT64 v)
 {
-    return writeMSR(cpu, 0x0390, v);
+	return writeMSR(cpu, 0x0390, v);
 }
 
 //
@@ -804,7 +804,7 @@ void writePERF_GLOBAL_OVR_CTRL(int cpu, UINT64 v)
 //
 UINT64 readPERFEVTSEL(int cpu, int n)
 {
-    return readMSR(cpu, 0x186 + n);
+	return readMSR(cpu, 0x186 + n);
 }
 
 //
@@ -812,7 +812,7 @@ UINT64 readPERFEVTSEL(int cpu, int n)
 //
 void writePERFEVTSEL(int cpu, int n, UINT64 v)
 {
-    return writeMSR(cpu, 0x186 + n, v);
+	return writeMSR(cpu, 0x186 + n, v);
 }
 
 //
@@ -820,7 +820,7 @@ void writePERFEVTSEL(int cpu, int n, UINT64 v)
 //
 UINT64 readPMC(int cpu, int n)
 {
-    return readMSR(cpu, 0xc1 + n);
+	return readMSR(cpu, 0xc1 + n);
 }
 
 //
@@ -828,7 +828,7 @@ UINT64 readPMC(int cpu, int n)
 //
 void writePMC(int cpu, int n, UINT64 v)
 {
-    return writeMSR(cpu, 0xc1 + n, v);
+	return writeMSR(cpu, 0xc1 + n, v);
 }
 
 //
@@ -837,13 +837,13 @@ void writePMC(int cpu, int n, UINT64 v)
 void pauseIfKeyPressed()
 {
 #ifdef WIN32
-    if (_kbhit()) {
-        if (_getch() == ' ') {
-            cout << endl << endl << "PAUSED - press key to continue";
-            _getch();
-            cout << endl;
-        }
-    }
+	if (_kbhit()) {
+		if (_getch() == ' ') {
+			cout << endl << endl << "PAUSED - press key to continue";
+			_getch();
+			cout << endl;
+		}
+	}
 #elif __linux__
 
 #endif
@@ -855,17 +855,17 @@ void pauseIfKeyPressed()
 void pressKeyToContinue()
 {
 #ifdef WIN32
-    cout << endl << "Press any key to continue...";
-    _getch();
+	cout << endl << "Press any key to continue...";
+	_getch();
 #elif __linux__
-    termios old, input;
-    tcgetattr(fileno(stdin), &old);             // save settings
-    input = old;                                // make new settings same as old settings
-    input.c_lflag &= ~(ICANON | ECHO);          // disable buffered i/o and echo
-    tcsetattr(fileno(stdin), TCSANOW, &input);  // use these new terminal i/o settings now
-    puts("Press any key to continue...");
-    getchar();
-    tcsetattr(fileno(stdin), TCSANOW, &old);
+	termios old, input;
+	tcgetattr(fileno(stdin), &old);             // save settings
+	input = old;                                // make new settings same as old settings
+	input.c_lflag &= ~(ICANON | ECHO);          // disable buffered i/o and echo
+	tcsetattr(fileno(stdin), TCSANOW, &input);  // use these new terminal i/o settings now
+	puts("Press any key to continue...");
+	getchar();
+	tcsetattr(fileno(stdin), TCSANOW, &old);
 #endif
 }
 
@@ -875,10 +875,10 @@ void pressKeyToContinue()
 void quit(int r)
 {
 #ifdef WIN32
-    cout << endl << "Press key to quit...";
-    _getch();   // stop DOS window disappearing prematurely
+	cout << endl << "Press key to quit...";
+	_getch();   // stop DOS window disappearing prematurely
 #endif
-    exit(r);
+	exit(r);
 }
 
 #ifdef X64
@@ -890,10 +890,10 @@ void quit(int r)
 //
 UINT64 rand(UINT64 &r)
 {
-    r ^= r >> 12;   // a
-    r ^= r << 25;   // b
-    r ^= r >> 27;   // c
-    return r * 2685821657736338717LL;
+	r ^= r >> 12;   // a
+	r ^= r << 25;   // b
+	r ^= r >> 27;   // c
+	return r * 2685821657736338717LL;
 }
 
 #else
@@ -907,9 +907,9 @@ UINT64 rand(UINT64 &r)
 //
 UINT rand(UINT &r)
 {
-    //return r = (UINT64) r * 16807 % 2147483647;   // 31 bits
-    //return r = (UINT64) r * 48271 % 2147483647;   // 31 bits
-    return r = (UINT64) r * 279470273 % 4294967291; // almost 32 bits
+	//return r = (UINT64) r * 16807 % 2147483647;   // 31 bits
+	//return r = (UINT64) r * 48271 % 2147483647;   // 31 bits
+	return r = (UINT64)r * 279470273 % 4294967291; // almost 32 bits
 }
 
 #endif
@@ -921,9 +921,9 @@ locale *commaLocale = NULL;
 //
 void setCommaLocale()
 {
-    if (commaLocale == NULL)
-        commaLocale = new locale(locale(), new CommaLocale());
-    cout.imbue(*commaLocale);
+	if (commaLocale == NULL)
+		commaLocale = new locale(locale(), new CommaLocale());
+	cout.imbue(*commaLocale);
 }
 
 //
@@ -931,7 +931,7 @@ void setCommaLocale()
 //
 void setLocale()
 {
-    cout.imbue(locale());
+	cout.imbue(locale());
 }
 
 //
@@ -939,33 +939,33 @@ void setLocale()
 //
 size_t getVMUse()
 {
-    size_t r = 0;
+	size_t r = 0;
 
 #ifdef WIN32
 
-    HANDLE hProcess;
-    PROCESS_MEMORY_COUNTERS pmc;
+	HANDLE hProcess;
+	PROCESS_MEMORY_COUNTERS pmc;
 
-    if ((hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, GetCurrentProcessId()))) {
-        if (GetProcessMemoryInfo(hProcess, &pmc, sizeof(pmc)))
-            r = pmc.PagefileUsage;
-        CloseHandle(hProcess);
-    }
+	if ((hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, GetCurrentProcessId()))) {
+		if (GetProcessMemoryInfo(hProcess, &pmc, sizeof(pmc)))
+			r = pmc.PagefileUsage;
+		CloseHandle(hProcess);
+	}
 
 #elif __linux__
 
-    UINT64 vmuse;
-    FILE* fp;
+	UINT64 vmuse;
+	FILE* fp;
 
-    if ((fp = fopen("/proc/self/statm", "r")) != NULL) {
-        if (fscanf(fp, "%llu", &vmuse) == 1)
-            r = vmuse * sysconf(_SC_PAGESIZE);
-        fclose(fp);
-    }
+	if ((fp = fopen("/proc/self/statm", "r")) != NULL) {
+		if (fscanf(fp, "%llu", &vmuse) == 1)
+			r = vmuse * sysconf(_SC_PAGESIZE);
+		fclose(fp);
+	}
 
 #endif
 
-    return r;
+	return r;
 }
 
 //
@@ -973,33 +973,33 @@ size_t getVMUse()
 //
 size_t getMemUse()
 {
-    size_t r = 0;
+	size_t r = 0;
 
 #ifdef WIN32
 
-    HANDLE hProcess;
-    PROCESS_MEMORY_COUNTERS pmc;
+	HANDLE hProcess;
+	PROCESS_MEMORY_COUNTERS pmc;
 
-    if ((hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, GetCurrentProcessId()))) {
-        if (GetProcessMemoryInfo(hProcess, &pmc, sizeof(pmc)))
-            r = pmc.WorkingSetSize;
-        CloseHandle(hProcess);
-    }
+	if ((hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, GetCurrentProcessId()))) {
+		if (GetProcessMemoryInfo(hProcess, &pmc, sizeof(pmc)))
+			r = pmc.WorkingSetSize;
+		CloseHandle(hProcess);
+	}
 
 #elif __linux__
 
-    UINT64 memuse;
-    FILE* fp;
+	UINT64 memuse;
+	FILE* fp;
 
-    if ((fp = fopen("/proc/self/statm", "r")) != NULL) {
-        if (fscanf(fp, "%*s%llu", &memuse) == 1)
-            r = memuse * sysconf(_SC_PAGESIZE);
-        fclose(fp);
-    }
+	if ((fp = fopen("/proc/self/statm", "r")) != NULL) {
+		if (fscanf(fp, "%*s%llu", &memuse) == 1)
+			r = memuse * sysconf(_SC_PAGESIZE);
+		fclose(fp);
+	}
 
 #endif
 
-    return r;
+	return r;
 }
 
 // eof
