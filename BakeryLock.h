@@ -12,7 +12,7 @@ public:
 
 	void acquire(int pid);
 	void release(int pid);
-	void setThreads(int);
+	void setThreads(int _threads);
 	void resetNumbers();
 };
 #endif

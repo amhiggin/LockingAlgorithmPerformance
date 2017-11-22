@@ -18,7 +18,7 @@ void BakeryLock::acquire(int pid) {
 	}
 	number[pid] = max + 1; 
 	choosing[pid] = 0;
-
+	// adding mfence
 	for (int j = 0; j < threads; j++) { 
 		while (choosing[j]);
 		while ((number[j] != 0) && ((number[j] < number[pid]) || ((number[j] == number[pid]) && (j < pid))));
@@ -26,6 +26,7 @@ void BakeryLock::acquire(int pid) {
 }
 void BakeryLock::release(int pid) {
 	number[pid] = 0; 
+	// adding another mfence
 }
 
 void BakeryLock::setThreads(int _threads) {

@@ -1,0 +1,44 @@
+2XYWM62 Windows 10 Education (64 bit) sharing (64bit EXE) DEBUG [increment] NCPUS=8 RAM=8GB 22-Nov-2017 19:14:35
+COUNTER64 NOPS=10000 NSECONDS=2 LOCKSTR=increment
+Intel64 family 6 model 60 stepping 3 Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz
+L1 D    32K L 64 K  8 N   64
+L1 I    32K L 64 K  8 N   64
+L2 U   256K L 64 K  8 N  512
+L3 U  8192K L 64 K 16 N 8192
+
+  nt    rt             ops   rel
+  --    --             ---   ---
+   1  2.00     915,400,000  1.00
+   2  2.00   1,043,490,000  1.14 ERROR incs  70% effective
+   3  2.00     737,120,000  0.81 ERROR incs  37% effective
+   4  2.00     813,730,000  0.89 ERROR incs  21% effective
+   5  2.00     707,760,000  0.77 ERROR incs  18% effective
+   6  2.00     762,610,000  0.83 ERROR incs  15% effective
+   7  2.00     654,190,000  0.71 ERROR incs  14% effective
+   8  2.01     715,390,000  0.78 ERROR incs  12% effective
+   9  2.00     713,270,000  0.78 ERROR incs  12% effective
+  10  2.01     716,140,000  0.78 ERROR incs  12% effective
+  11  2.00     717,740,000  0.78 ERROR incs  11% effective
+  12  2.00     721,400,000  0.79 ERROR incs  10% effective
+  13  2.01     702,520,000  0.77 ERROR incs  11% effective
+  14  2.01     723,020,000  0.79 ERROR incs  10% effective
+  15  2.01     718,870,000  0.79 ERROR incs  10% effective
+  16  2.01     716,500,000  0.78 ERROR incs  10% effective
+
+nt/rt/ops/incs
+1/2001/915400000/915400000
+2/2001/1043490000/733918397
+3/2002/737120000/273641283
+4/2002/813730000/172095912
+5/2002/707760000/126018033
+6/2002/762610000/116814624
+7/2003/654190000/92410485
+8/2007/715390000/87057279
+9/2003/713270000/84409585
+10/2011/716140000/85612761
+11/2005/717740000/81984888
+12/2005/721400000/74822419
+13/2009/702520000/76658428
+14/2010/723020000/69160236
+15/2006/718870000/74575745
+16/2006/716500000/70315303

@@ -70,6 +70,29 @@ using namespace std;                            // cout
 #define GINDX(n)    (g+n*lineSz/sizeof(VINT))   //
 #endif
 
+
+UINT64 tstart;                                  // start of test in ms
+int sharing;                                    // % sharing
+int lineSz;                                     // cache line size
+int maxThread;                                  // max # of threads
+
+THREADH *threadH;                               // thread handles
+UINT64 *ops;                                    // for ops per thread
+
+typedef struct {
+	int sharing;                                // sharing
+	int nt;                                     // # threads
+	UINT64 runTime;                                  // run time (ms)
+	UINT64 ops;                                 // ops
+	UINT64 incs;                                // should be equal ops
+	UINT64 aborts;                              //
+} Result;
+
+Result *r;                                      // results
+UINT indx;                                      // results index
+
+volatile VINT *g;                               // NB: position of volatile
+
 /*
 * GLOBAL VARIABLES
 */
@@ -80,19 +103,20 @@ QNode **lock = &mcsLock.lock;
 DWORD tlsIndex = TlsAlloc();
 int nt = 1;
 
+
 //
 // LOCKTYP
 //
-// 0::InterlockedIncrement
-// 1::BakeryLock
-// 2::TestAndTestAndSetLock
-// 3::MCSLock
+// 0::increment
+// 1::InterlockedIncrement
+// 2::BakeryLock
+// 3::TestAndTestAndSetLock
+// 4::MCSLock
 //
-
-#define LOCKTYP       0                           // set op type
+#define LOCKTYP       3                           // set op type
 
 #if LOCKTYP == 0
-#define LOCKSTR       "inc"
+#define LOCKSTR       "increment"
 #define INC(g)      (*g)++;
 
 
@@ -109,53 +133,40 @@ int nt = 1;
 #elif LOCKTYP == 2
 
 #define LOCKSTR		"BAKERY_LOCK"
-#define INC(g)		{                                                                           
-						bakeryLock.acquire(thread);
-						(*g)++;
-						bakeryLock.release(thread);
-					}
+#define INC(g)		incrementBakeryLock(thread);
 
 #elif LOCKTYP == 3
 #define LOCKSTR		"TESTANDTESTANDSET_LOCK"
-#define INC(g)		{
-						testAndTestAndSetLock.acquire();
-						(*g)++;
-						testAndTestAndSetLock.release();
-					}
+#define INC(g)		incrementTestAndTestAndSetLock();
+
 #elif LOCKTYP == 4
 #define LOCKSTR		"MCS_LOCK"
-#define INC(g)		{
-						mcsLock.acquire(lock, tlsIndex);
-						(*g)++;
-						mcsLock.release(lock, tlsIndex);
-					}
+#define INC(g)		incrementMCSLock();
 #endif
 
-UINT64 tstart;                                  // start of test in ms
-int sharing;                                    // % sharing
-int lineSz;                                     // cache line size
-int maxThread;                                  // max # of threads
+void incrementTestAndTestAndSetLock() {
+	testAndTestAndSetLock.acquire();
+	(*g)++;
+	testAndTestAndSetLock.release();
+}
 
-THREADH *threadH;                               // thread handles
-UINT64 *ops;                                    // for ops per thread
+void incrementBakeryLock(int thread) {
+	bakeryLock.acquire(thread);
+	(*g)++;
+	bakeryLock.release(thread);
+}
 
-typedef struct {
-	int sharing;                                // sharing
-	int nt;                                     // # threads
-	UINT64 rt;                                  // run time (ms)
-	UINT64 ops;                                 // ops
-	UINT64 incs;                                // should be equal ops
-	UINT64 aborts;                              //
-} Result;
+void incrementMCSLock() {
+	mcsLock.acquire(lock, tlsIndex);
+	(*g)++;
+	mcsLock.release(lock, tlsIndex);
+}
 
-Result *r;                                      // results
-UINT indx;                                      // results index
 
-volatile VINT *g;                               // NB: position of volatile
 
-												//
-												// test memory allocation [see lecture notes]
-												//
+//
+// test memory allocation [see lecture notes]
+//
 ALIGN(64) UINT64 cnt0;
 ALIGN(64) UINT64 cnt1;
 ALIGN(64) UINT64 cnt2;
@@ -166,6 +177,11 @@ UINT64 cnt3;                                    // NB: in Debug mode allocated i
 //
 WORKER worker(void *vthread)
 {
+#if LOCKTYP == 4
+	QNode *qn = new QNode();
+	TlsSetValue(tlsIndex, qn);
+#endif
+	
 	int thread = (int)((size_t)vthread);
 
 	UINT64 n = 0;
@@ -180,45 +196,9 @@ WORKER worker(void *vthread)
 		//
 		// do some work
 		//
-		for (int i = 0; i < NOPS / 4; i++) {
-
-			switch (sharing) {
-			case 0:
-
-				INC(gt);
-				INC(gt);
-				INC(gt);
-				INC(gt);
-				break;
-
-			case 25:
-				INC(gt);
-				INC(gt);
-				INC(gt);
+		for (int i = 0; i < NOPS; i++) {
+			// note removed sharing-specific results
 				INC(gs);
-				break;
-
-			case 50:
-				INC(gt);
-				INC(gs);
-				INC(gt);
-				INC(gs);
-				break;
-
-			case 75:
-				INC(gt);
-				INC(gs);
-				INC(gs);
-				INC(gs);
-				break;
-
-			case 100:
-				INC(gs);
-				INC(gs);
-				INC(gs);
-				INC(gs);
-
-			}
 		}
 		n += NOPS;
 
@@ -312,14 +292,12 @@ int main()
 	//
 	// header
 	//
-	cout << "sharing";
 	cout << setw(4) << "nt";
 	cout << setw(6) << "rt";
 	cout << setw(16) << "ops";
 	cout << setw(6) << "rel";
 	cout << endl;
 
-	cout << "-------";              // sharing
 	cout << setw(4) << "--";        // nt
 	cout << setw(6) << "--";        // rt
 	cout << setw(16) << "---";      // ops
@@ -340,9 +318,7 @@ int main()
 	//
 	UINT64 ops1 = 1;
 
-	for (sharing = 0; sharing <= 100; sharing += 25) {
-
-		for (int nt = 1; nt <= maxThread; nt *= 2, indx++) {
+		for (int nt = 1; nt <= maxThread; nt++, indx++) {
 
 			//
 			//  zero shared memory
@@ -351,9 +327,13 @@ int main()
 				*(GINDX(thread)) = 0;   // thread local
 			*(GINDX(maxThread)) = 0;    // shared
 
-										//
-										// get start time
-										//
+			
+			bakeryLock.setThreads(nt);
+			bakeryLock.resetNumbers();
+										
+			//
+			// get start time
+			//
 			tstart = getWallClockMS();
 
 			//
@@ -368,9 +348,9 @@ int main()
 			waitForThreadsToFinish(nt, threadH);
 			UINT64 rt = getWallClockMS() - tstart;
 
-										//
-										// save results and output summary to console
-										//
+			//
+			// save results and output summary to console
+			//
 			for (int thread = 0; thread < nt; thread++) {
 				r[indx].ops += ops[thread];
 				r[indx].incs += *(GINDX(thread));
@@ -380,9 +360,8 @@ int main()
 				ops1 = r[indx].ops;
 			r[indx].sharing = sharing;
 			r[indx].nt = nt;
-			r[indx].rt = rt;
+			r[indx].runTime = rt;
 
-			cout << setw(6) << sharing << "%";
 			cout << setw(4) << nt;
 			cout << setw(6) << fixed << setprecision(2) << (double)rt / 1000;
 			cout << setw(16) << r[indx].ops;
@@ -401,18 +380,16 @@ int main()
 
 		}
 
-	}
-
 	cout << endl;
 
 	//
 	// output results so they can easily be pasted into a spread sheet from console window
 	//
 	setLocale();
-	cout << "sharing/nt/rt/ops/incs";
+	cout << "nt/rt/ops/incs";
 	cout << endl;
 	for (UINT i = 0; i < indx; i++) {
-		cout << r[i].sharing << "/" << r[i].nt << "/" << r[i].rt << "/" << r[i].ops << "/" << r[i].incs;
+		cout << r[i].nt << "/" << r[i].runTime << "/" << r[i].ops << "/" << r[i].incs;
 		cout << endl;
 	}
 	cout << endl;
