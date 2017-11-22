@@ -113,7 +113,7 @@ int nt = 1;
 // 3::TestAndTestAndSetLock
 // 4::MCSLock
 //
-#define LOCKTYP       3                           // set op type
+#define LOCKTYP       4                           // set op type
 
 #if LOCKTYP == 0
 #define LOCKSTR       "increment"
@@ -131,7 +131,6 @@ int nt = 1;
 
 
 #elif LOCKTYP == 2
-
 #define LOCKSTR		"BAKERY_LOCK"
 #define INC(g)		incrementBakeryLock(thread);
 

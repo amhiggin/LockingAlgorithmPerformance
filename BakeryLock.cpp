@@ -11,6 +11,7 @@ using namespace std;
 
 void BakeryLock::acquire(int pid) {
 	choosing[pid] = 1;
+	_mm_mfence();
 	unsigned long long max = 0;
 	for (int i = 0; i <threads; i++) { 
 		if (number[i] > max)
@@ -19,6 +20,7 @@ void BakeryLock::acquire(int pid) {
 	number[pid] = max + 1; 
 	choosing[pid] = 0;
 	// adding mfence
+	_mm_mfence();
 	for (int j = 0; j < threads; j++) { 
 		while (choosing[j]);
 		while ((number[j] != 0) && ((number[j] < number[pid]) || ((number[j] == number[pid]) && (j < pid))));
@@ -27,6 +29,7 @@ void BakeryLock::acquire(int pid) {
 void BakeryLock::release(int pid) {
 	number[pid] = 0; 
 	// adding another mfence
+	_mm_mfence();
 }
 
 void BakeryLock::setThreads(int _threads) {
