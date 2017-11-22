@@ -1,0 +1,283 @@
+﻿  stdafx.cpp
+  sharing.cpp
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(154): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(154): error C2146: syntax error: missing ';' before identifier 'ncpu'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(160): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(160): error C2146: syntax error: missing ';' before identifier 'getPhysicalMemSz'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(165): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(165): error C2146: syntax error: missing ';' before identifier 'getWallClockMS'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(166): error C2065: 'HANDLE': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(166): error C2059: syntax error: ','
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(167): error C2182: 'runThreadOnCPU': illegal use of type 'void'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(168): error C2065: 'HANDLE': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(168): error C2059: syntax error: ')'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(169): error C2065: 'HANDLE': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(169): error C2182: 'closeThread': illegal use of type 'void'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(175): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(175): error C2146: syntax error: missing ';' before identifier 'rand'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(175): error C2059: syntax error: ')'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(190): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(190): error C2146: syntax error: missing ';' before identifier 'getPageSz'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(239): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(239): error C2146: syntax error: missing ';' before identifier 'readMSR'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(240): error C2061: syntax error: identifier 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(242): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(242): error C2146: syntax error: missing ';' before identifier 'readFIXED_CTR'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(243): error C2061: syntax error: identifier 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(245): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(245): error C2146: syntax error: missing ';' before identifier 'readFIXED_CTR_CTRL'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(246): error C2061: syntax error: identifier 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(248): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(248): error C2146: syntax error: missing ';' before identifier 'readPERF_GLOBAL_STATUS'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(249): error C2061: syntax error: identifier 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(251): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(251): error C2146: syntax error: missing ';' before identifier 'readPERF_GLOBAL_CTRL'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(252): error C2061: syntax error: identifier 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(254): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(254): error C2146: syntax error: missing ';' before identifier 'readPERF_GLOBAL_OVF_CTRL'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(255): error C2061: syntax error: identifier 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(257): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(257): error C2146: syntax error: missing ';' before identifier 'readPERFEVTSEL'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(258): error C2061: syntax error: identifier 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(260): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(260): error C2146: syntax error: missing ';' before identifier 'readPMC'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(261): error C2061: syntax error: identifier 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(125): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(125): error C2146: syntax error: missing ';' before identifier 'tstart'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(130): error C2143: syntax error: missing ';' before '*'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(130): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(131): error C2143: syntax error: missing ';' before '*'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(131): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(131): error C2086: 'int UINT64': redefinition
+  u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(125): note: see declaration of 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(140): error C3646: 'rt': unknown override specifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(140): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(141): error C3646: 'ops': unknown override specifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(141): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(142): error C3646: 'incs': unknown override specifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(142): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(143): error C3646: 'aborts': unknown override specifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(143): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(147): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(147): error C2146: syntax error: missing ';' before identifier 'indx'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(149): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(149): error C2143: syntax error: missing ';' before '*'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(149): error C2373: 'UINT64': redefinition; different type modifiers
+  u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(125): note: see declaration of 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(154): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(154): error C2086: 'int UINT64': redefinition
+  u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(125): note: see declaration of 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(154): error C2146: syntax error: missing ';' before identifier 'cnt0'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(155): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(155): error C2086: 'int UINT64': redefinition
+  u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(125): note: see declaration of 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(155): error C2146: syntax error: missing ';' before identifier 'cnt1'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(156): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(156): error C2086: 'int UINT64': redefinition
+  u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(125): note: see declaration of 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(156): error C2146: syntax error: missing ';' before identifier 'cnt2'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(157): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(157): error C2086: 'int UINT64': redefinition
+  u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(125): note: see declaration of 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(157): error C2146: syntax error: missing ';' before identifier 'cnt3'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(239): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(239): error C2146: syntax error: missing ';' before identifier 'WINAPI'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(240): error C2143: syntax error: missing ';' before '{'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(240): error C2447: '{': missing function header (old-style formal list?)
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(367): error C2065: 'cnt3': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(369): error C2065: 'cnt3': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(371): error C2065: 'cnt3': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(394): error C2059: syntax error: ')'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(395): error C2059: syntax error: ')'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(404): error C2059: syntax error: ')'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(422): error C2065: 'indx': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(471): error C2146: syntax error: missing ';' before identifier 'ops1'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(471): error C2065: 'ops1': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(475): error C2065: 'indx': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(491): error C2065: 'tstart': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(497): error C2065: 'worker': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(497): error C3861: 'createThread': identifier not found
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(502): error C3861: 'waitForThreadsToFinish': identifier not found
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(503): error C2146: syntax error: missing ';' before identifier 'rt'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(503): error C2065: 'rt': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(503): error C2065: 'tstart': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(513): error C2065: 'indx': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(513): error C2228: left of '.ops' must have class/struct/union
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(514): error C2065: 'indx': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(514): error C2228: left of '.incs' must have class/struct/union
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(519): error C2065: 'indx': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(519): error C2228: left of '.incs' must have class/struct/union
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(521): error C2065: 'ops1': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(521): error C2065: 'indx': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(521): error C2228: left of '.ops' must have class/struct/union
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(522): error C2065: 'indx': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(522): error C2228: left of '.sharing' must have class/struct/union
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(523): error C2065: 'indx': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(523): error C2228: left of '.nt' must have class/struct/union
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(524): error C2065: 'indx': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(524): error C2228: left of '.rt' must have class/struct/union
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(524): error C2065: 'rt': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(528): error C2065: 'rt': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(529): error C2065: 'indx': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(529): error C2228: left of '.ops' must have class/struct/union
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(530): error C2065: 'indx': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(530): error C2228: left of '.ops' must have class/struct/union
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(530): error C2065: 'ops1': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(538): error C2065: 'indx': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(538): error C2228: left of '.ops' must have class/struct/union
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(538): error C2228: left of '.incs' must have class/struct/union
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(539): error C2065: 'indx': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(539): error C2228: left of '.incs' must have class/struct/union
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(539): error C2228: left of '.ops' must have class/struct/union
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(547): error C2064: term does not evaluate to a function taking 1 arguments
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(564): error C2146: syntax error: missing ';' before identifier 'i'
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(564): error C2143: syntax error: missing ';' before '='
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(564): error C2143: syntax error: missing ')' before '='
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(564): error C2059: syntax error: '='
+u:\documents\year 5\advanced computer architecture\tutorial 2\sharing.cpp(564): fatal error C1003: error count exceeds 100; stopping compilation
+  helper.cpp
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(154): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(154): error C2146: syntax error: missing ';' before identifier 'ncpu'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(160): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(160): error C2146: syntax error: missing ';' before identifier 'getPhysicalMemSz'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(165): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(165): error C2146: syntax error: missing ';' before identifier 'getWallClockMS'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(166): error C2065: 'HANDLE': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(166): error C2059: syntax error: ','
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(167): error C2182: 'runThreadOnCPU': illegal use of type 'void'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(168): error C2065: 'HANDLE': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(168): error C2059: syntax error: ')'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(169): error C2065: 'HANDLE': undeclared identifier
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(169): error C2182: 'closeThread': illegal use of type 'void'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(175): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(175): error C2146: syntax error: missing ';' before identifier 'rand'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(175): error C2059: syntax error: ')'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(190): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(190): error C2146: syntax error: missing ';' before identifier 'getPageSz'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(239): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(239): error C2146: syntax error: missing ';' before identifier 'readMSR'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(240): error C2061: syntax error: identifier 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(242): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(242): error C2146: syntax error: missing ';' before identifier 'readFIXED_CTR'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(243): error C2061: syntax error: identifier 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(245): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(245): error C2146: syntax error: missing ';' before identifier 'readFIXED_CTR_CTRL'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(246): error C2061: syntax error: identifier 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(248): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(248): error C2146: syntax error: missing ';' before identifier 'readPERF_GLOBAL_STATUS'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(249): error C2061: syntax error: identifier 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(251): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(251): error C2146: syntax error: missing ';' before identifier 'readPERF_GLOBAL_CTRL'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(252): error C2061: syntax error: identifier 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(254): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(254): error C2146: syntax error: missing ';' before identifier 'readPERF_GLOBAL_OVF_CTRL'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(255): error C2061: syntax error: identifier 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(257): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(257): error C2146: syntax error: missing ';' before identifier 'readPERFEVTSEL'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(258): error C2061: syntax error: identifier 'UINT64'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(260): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(260): error C2146: syntax error: missing ';' before identifier 'readPMC'
+u:\documents\year 5\advanced computer architecture\tutorial 2\helper.h(261): error C2061: syntax error: identifier 'UINT64'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(92): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(92): error C2146: syntax error: missing ';' before identifier 'WINAPI'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(131): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(131): error C2086: 'int BOOL': redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(91): note: see declaration of 'BOOL'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(131): error C2146: syntax error: missing ';' before identifier 'WINAPI'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(140): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(140): error C2086: 'int BOOL': redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(91): note: see declaration of 'BOOL'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(140): error C2146: syntax error: missing ';' before identifier 'WINAPI'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(156): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(156): error C2146: syntax error: missing ';' before identifier 'WINAPI'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(165): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(165): error C2086: 'int DWORD': redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(155): note: see declaration of 'DWORD'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(165): error C2146: syntax error: missing ';' before identifier 'WINAPI'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(183): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(183): error C2086: 'int DWORD': redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(155): note: see declaration of 'DWORD'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(183): error C2146: syntax error: missing ';' before identifier 'WINAPI'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(196): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(196): error C2086: 'int DWORD': redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(155): note: see declaration of 'DWORD'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(196): error C2146: syntax error: missing ';' before identifier 'WINAPI'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(212): error C3646: 'lpBaseOfDll': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(212): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(213): error C3646: 'SizeOfImage': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(213): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(214): error C3646: 'EntryPoint': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(214): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(219): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(219): error C2086: 'int BOOL': redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(91): note: see declaration of 'BOOL'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(219): error C2146: syntax error: missing ';' before identifier 'WINAPI'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(234): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(234): error C2086: 'int BOOL': redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(91): note: see declaration of 'BOOL'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(234): error C2146: syntax error: missing ';' before identifier 'WINAPI'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(249): error C3646: 'Flags': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(249): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(251): error C3646: 'Protection': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(251): error C2059: syntax error: ':'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(251): error C2334: unexpected token(s) preceding ':'; skipping apparent function body
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(264): error C3646: 'NumberOfEntries': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(264): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(265): error C3646: 'WorkingSetInfo': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(265): error C2143: syntax error: missing ',' before '['
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(265): error C2143: syntax error: missing ')' before ';'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(265): error C2238: unexpected token(s) preceding ';'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(269): error C3646: 'Flags': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(269): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(272): error C3646: 'Valid': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(272): error C2059: syntax error: ':'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(272): error C2334: unexpected token(s) preceding ':'; skipping apparent function body
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(287): error C3646: 'Valid': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(287): error C2059: syntax error: ':'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(287): error C2334: unexpected token(s) preceding ':'; skipping apparent function body
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(296): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(301): error C3646: 'VirtualAddress': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(301): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(302): error C3646: 'VirtualAttributes': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(302): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(314): error C3646: 'WINAPI': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(314): error C3646: 'K32QueryWorkingSet': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(314): error C2059: syntax error: '('
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(318): error C2238: unexpected token(s) preceding ';'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(322): error C3646: 'WINAPI': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(322): error C3646: 'K32QueryWorkingSetEx': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(322): error C2059: syntax error: '('
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(326): error C2238: unexpected token(s) preceding ';'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(330): error C3646: 'WINAPI': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(330): error C3646: 'K32InitializeProcessForWsWatch': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(330): error C2059: syntax error: '('
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(332): error C2238: unexpected token(s) preceding ';'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(335): error C3646: 'FaultingPc': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(335): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(336): error C3646: 'FaultingVa': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(336): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(341): error C3646: 'FaultingThreadId': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(341): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(342): error C3646: 'Flags': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(342): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(347): error C3646: 'WINAPI': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(347): error C3646: 'K32GetWsChanges': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(347): error C2059: syntax error: '('
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(351): error C2238: unexpected token(s) preceding ';'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(355): error C3646: 'WINAPI': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(355): error C3646: 'K32GetWsChangesEx': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(355): error C2059: syntax error: '('
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(359): error C2238: unexpected token(s) preceding ';'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(363): error C3646: 'WINAPI': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(363): error C3646: 'K32GetMappedFileNameW': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(363): error C2059: syntax error: '('
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(368): error C2238: unexpected token(s) preceding ';'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(372): error C3646: 'WINAPI': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(372): error C3646: 'K32GetMappedFileNameA': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(372): error C2059: syntax error: '('
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(377): error C2238: unexpected token(s) preceding ';'
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(387): error C3646: 'WINAPI': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(387): error C3646: 'K32EnumDeviceDrivers': unknown override specifier
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(387): error C2059: syntax error: '('
+c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\psapi.h(387): fatal error C1003: error count exceeds 100; stopping compilation
+  Generating Code...
