@@ -113,7 +113,7 @@ int nt = 1;
 // 3::TestAndTestAndSetLock
 // 4::MCSLock
 //
-#define LOCKTYP       0                          // set op type
+#define LOCKTYP       2                          // set op type
 
 #if LOCKTYP == 0
 #define LOCKSTR       "increment"
@@ -215,9 +215,6 @@ int main()
 	ncpu = getNumberOfCPUs();   // number of logical CPUs
 	maxThread = 2 * ncpu;       // max number of threads
 
-								//
-								// get date
-								//
 	char dateAndTime[256];
 	getDateAndTime(dateAndTime, sizeof(dateAndTime));
 
@@ -320,17 +317,13 @@ int main()
 
 		for (int nt = 1; nt <= maxThread; nt++, indx++) {
 
-			//
-			//  zero shared memory
-			//
 			for (int thread = 0; thread < nt; thread++)
 				*(GINDX(thread)) = 0;   // thread local
 			*(GINDX(maxThread)) = 0;    // shared
-
-			
+#ifdef LOCKTYP == 2			
 			bakeryLock.setThreads(nt);
 			bakeryLock.resetNumbers();
-										
+#endif										
 			//
 			// get start time
 			//
