@@ -113,7 +113,7 @@ int nt = 1;
 // 3::TestAndTestAndSetLock
 // 4::MCSLock
 //
-#define LOCKTYP       4                           // set op type
+#define LOCKTYP       4                          // set op type
 
 #if LOCKTYP == 0
 #define LOCKSTR       "increment"
@@ -183,32 +183,25 @@ WORKER worker(void *vthread)
 	
 	int thread = (int)((size_t)vthread);
 
+	// counter for number of operations performed by this thread
 	UINT64 n = 0;
 
 	volatile VINT *gt = GINDX(thread);
 	volatile VINT *gs = GINDX(maxThread);
 
-	runThreadOnCPU(thread % ncpu);
-
-	while (1) {
+	do {
 
 		//
 		// do some work
 		//
 		for (int i = 0; i < NOPS; i++) {
-			// note removed sharing-specific results
-				INC(gs);
+			INC(gs);
 		}
 		n += NOPS;
 
-		//
-		// check if runtime exceeded
-		//
-		if ((getWallClockMS() - tstart) > NSECONDS * 1000)
-			break;
+	} while (!((getWallClockMS() - tstart) > NSECONDS * 1000));
 
-	}
-
+	// update the  number of ops outside the loop to remove possible of false sharing
 	ops[thread] = n;
 	return 0;
 
@@ -291,16 +284,20 @@ int main()
 	//
 	// header
 	//
-	cout << setw(4) << "nt";
-	cout << setw(6) << "rt";
+	cout << "sharing";
+	cout << setw(16) << "nt";
+	cout << setw(16) << "rt";
 	cout << setw(16) << "ops";
-	cout << setw(6) << "rel";
+	cout << setw(16) << "incs";
+	cout << setw(16) << "rel";
 	cout << endl;
-
-	cout << setw(4) << "--";        // nt
-	cout << setw(6) << "--";        // rt
+	
+	cout << "-------";              // sharing
+	cout << setw(16) << "--";        // nt
+	cout << setw(16) << "--";        // rt
 	cout << setw(16) << "---";      // ops
-	cout << setw(6) << "---";       // rel
+	cout << setw(16) << "---";      // incs
+	cout << setw(16) << "---";       // rel
 	cout << endl;
 
 	//
@@ -316,6 +313,8 @@ int main()
 	// run tests
 	//
 	UINT64 ops1 = 1;
+	// want to check the case for 100% sharing only
+	sharing = 100;
 
 		for (int nt = 1; nt <= maxThread; nt++, indx++) {
 
@@ -355,16 +354,18 @@ int main()
 				r[indx].incs += *(GINDX(thread));
 			}
 			r[indx].incs += *(GINDX(maxThread));
-			if ((sharing == 0) && (nt == 1))
+			if ((sharing == 100) && (nt == 1))
 				ops1 = r[indx].ops;
 			r[indx].sharing = sharing;
 			r[indx].nt = nt;
 			r[indx].runTime = rt;
 
-			cout << setw(4) << nt;
-			cout << setw(6) << fixed << setprecision(2) << (double)rt / 1000;
+			cout << sharing << "%";
+			cout << setw(16) << nt;
+			cout << setw(16) << fixed << setprecision(2) << (double)rt / 1000;
 			cout << setw(16) << r[indx].ops;
-			cout << setw(6) << fixed << setprecision(2) << (double)r[indx].ops / ops1;
+			cout << setw(16) << r[indx].incs;
+			cout << setw(16) << fixed << setprecision(2) << (double)r[indx].ops / ops1;
 
 			if (r[indx].ops != r[indx].incs)
 				cout << " ERROR incs " << setw(3) << fixed << setprecision(0) << 100.0 * r[indx].incs / r[indx].ops << "% effective";
@@ -382,7 +383,7 @@ int main()
 	cout << endl;
 
 	//
-	// output results so they can easily be pasted into a spread sheet from console window
+	// output results so they can easily be pasted into a spread sheet getWallClockfrom console window
 	//
 	setLocale();
 	cout << "nt/rt/ops/incs";
