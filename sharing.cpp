@@ -113,7 +113,7 @@ int nt = 1;
 // 3::TestAndTestAndSetLock
 // 4::MCSLock
 //
-#define LOCKTYP       4                          // set op type
+#define LOCKTYP       0                          // set op type
 
 #if LOCKTYP == 0
 #define LOCKSTR       "increment"
@@ -389,10 +389,10 @@ int main()
 	// output results so they can easily be pasted into a spread sheet getWallClockfrom console window
 	//
 	setLocale();
-	cout << "nt/rt/ops/incs";
+	cout << "nt/rt/ops/incs/incspersec";
 	cout << endl;
 	for (UINT i = 0; i < indx; i++) {
-		cout << r[i].nt << "/" << r[i].runTime << "/" << r[i].ops << "/" << r[i].incs;
+		cout << r[i].nt << "/" << r[i].runTime << "/" << r[i].ops << "/" << r[i].incs << "/" << (r[i].incs / (r[i].runTime / 1000.0));
 		cout << endl;
 	}
 	cout << endl;
