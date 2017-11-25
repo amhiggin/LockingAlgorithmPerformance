@@ -47,14 +47,24 @@
 
 using namespace std;                            // cout
 
+
+/*
+* GLOBAL VARIABLES
+*/
+BakeryLock bakeryLock;
+TestAndTestAndSetLock testAndTestAndSetLock;
+MCSLock mcsLock;
+QNode **lock = &mcsLock.lock;
+DWORD tlsIndex = TlsAlloc();
+int nt = 1;
+
+
 #define K           1024                        //
 #define GB          (K*K*K)                     //
 #define NOPS        10000                       //
 #define NSECONDS    2                           // run each test for NSECONDS
 
 #define COUNTER64                               // comment for 32 bit counter
-												//#define FALSESHARING                          // allocate counters in same cache line
-												//#define USEPMS                                // use PMS counters
 
 #ifdef COUNTER64
 #define VINT    UINT64                          //  64 bit counter
@@ -69,7 +79,6 @@ using namespace std;                            // cout
 #else
 #define GINDX(n)    (g+n*lineSz/sizeof(VINT))   //
 #endif
-
 
 UINT64 tstart;                                  // start of test in ms
 int sharing;                                    // % sharing
@@ -93,16 +102,6 @@ UINT indx;                                      // results index
 
 volatile VINT *g;                               // NB: position of volatile
 
-/*
-* GLOBAL VARIABLES
-*/
-BakeryLock bakeryLock;
-TestAndTestAndSetLock testAndTestAndSetLock;
-MCSLock mcsLock;
-QNode **lock = &mcsLock.lock;
-DWORD tlsIndex = TlsAlloc();
-int nt = 1;
-
 
 //
 // LOCKTYP
@@ -113,7 +112,7 @@ int nt = 1;
 // 3::TestAndTestAndSetLock
 // 4::MCSLock
 //
-#define LOCKTYP       2                          // set op type
+#define LOCKTYP       4                          // set op type
 
 #if LOCKTYP == 0
 #define LOCKSTR       "increment"
@@ -161,8 +160,6 @@ void incrementMCSLock() {
 	mcsLock.release(lock, tlsIndex);
 }
 
-
-
 //
 // test memory allocation [see lecture notes]
 //
@@ -201,7 +198,7 @@ WORKER worker(void *vthread)
 
 	} while (!((getWallClockMS() - tstart) > NSECONDS * 1000));
 
-	// update the  number of ops outside the loop to remove possible of false sharing
+	// update the  number of ops outside the loop to remove possiblility of false sharing
 	ops[thread] = n;
 	return 0;
 

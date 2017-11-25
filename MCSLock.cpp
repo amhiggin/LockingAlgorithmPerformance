@@ -14,6 +14,7 @@ using namespace std;
 template <class QNode>
 
 void* ALIGNEDMA<QNode>::operator new(size_t sz) { // aligned memory allocator
+	int lineSz = getCacheLineSz();
 	sz = (sz + lineSz - 1) / lineSz * lineSz; // make sz a multiple of lineSz
 	return _aligned_malloc(sz, lineSz); // allocate on a lineSz boundary
 }
