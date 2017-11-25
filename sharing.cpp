@@ -289,6 +289,7 @@ int main()
 	cout << setw(16) << "rt";
 	cout << setw(16) << "ops";
 	cout << setw(16) << "incs";
+	cout << setw(16) << "incs PER SEC";
 	cout << setw(16) << "rel";
 	cout << endl;
 	
@@ -297,6 +298,7 @@ int main()
 	cout << setw(16) << "--";        // rt
 	cout << setw(16) << "---";      // ops
 	cout << setw(16) << "---";      // incs
+	cout << setw(16) << "----------";      // incs per sec
 	cout << setw(16) << "---";       // rel
 	cout << endl;
 
@@ -365,6 +367,7 @@ int main()
 			cout << setw(16) << fixed << setprecision(2) << (double)rt / 1000;
 			cout << setw(16) << r[indx].ops;
 			cout << setw(16) << r[indx].incs;
+			cout << setw(16) << fixed << setprecision(2) << (double)r[indx].incs / ((double)rt / 1000);
 			cout << setw(16) << fixed << setprecision(2) << (double)r[indx].ops / ops1;
 
 			if (r[indx].ops != r[indx].incs)
