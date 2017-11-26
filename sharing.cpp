@@ -61,7 +61,7 @@ int nt = 1;
 
 #define K           1024                        //
 #define GB          (K*K*K)                     //
-#define NOPS        10000                       //
+#define NOPS        100                       //
 #define NSECONDS    2                           // run each test for NSECONDS
 
 #define COUNTER64                               // comment for 32 bit counter
@@ -174,6 +174,7 @@ UINT64 cnt3;                                    // NB: in Debug mode allocated i
 WORKER worker(void *vthread)
 {
 #if LOCKTYP == 4
+	// each thread must allocate its own qnode at startup
 	QNode *qn = new QNode();
 	TlsSetValue(tlsIndex, qn);
 #endif
@@ -192,6 +193,7 @@ WORKER worker(void *vthread)
 		// do some work
 		//
 		for (int i = 0; i < NOPS; i++) {
+			// increment shared counter
 			INC(gs);
 		}
 		n += NOPS;
@@ -312,7 +314,7 @@ int main()
 	// want to check the case for 100% sharing only
 	sharing = 100;
 
-		for (int nt = 1; nt <= maxThread; nt++, indx++) {
+		for (int nt = 1; nt <= maxThread; nt*=2, indx++) {
 
 			for (int thread = 0; thread < nt; thread++)
 				*(GINDX(thread)) = 0;   // thread local

@@ -2,6 +2,7 @@
 * MCS (Mellor-Crummie and Scott) Lock
 * As described in 'Locks', Dr. Jeremy Jones, SCSS TCD
 * https://www.scss.tcd.ie/jeremy.jones/CS4021/Locks.pdf
+* Note ALIGNEDMA ensures that each QNode aligned on a cache line boundary (avoid false sharing).
 */
 
 #include "MCSLock.h"
